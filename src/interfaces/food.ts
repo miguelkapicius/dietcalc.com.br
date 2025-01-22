@@ -1,4 +1,5 @@
 export type Unit = "g" | "ml" | "unit";
+export type Category = "Protein" | "Carbs" | "Fat";
 
 export interface IFood {
     id: string;
@@ -9,4 +10,6 @@ export interface IFood {
     fat: number;
     unit: Unit;
     defaultQuantity: number;
+    category: Category;
+    imageUrl: string;
 }
