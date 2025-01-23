@@ -1,10 +1,10 @@
 "use client";
 
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Search } from "lucide-react";
 import { foods } from "@/data/foods";
 import { Button } from "../ui/button";
-import { useState } from "react";
-import { Unit } from "@/interfaces/food";
+import { useContext, useState } from "react";
+import { IFood, Unit } from "@/interfaces/food";
 import { Input } from "../ui/input";
 import { STEP_BY_UNIT } from "@/lib/constants";
 import {
@@ -16,8 +16,12 @@ import {
 } from "../ui/card";
 import Image from "next/image";
 import { Separator } from "../ui/separator";
+import { useDietListContext } from "@/contexts/diet-list-context";
+import { SearchInput } from "./search-input";
 
 export function DesktopDietTable() {
+    const { foodList } = useDietListContext();
+
     const [quantities, setQuantities] = useState(
         foods.reduce((acc, food) => {
             acc[food.id] = food.defaultQuantity;
@@ -35,14 +39,17 @@ export function DesktopDietTable() {
 
     return (
         <div className="space-y-12">
-            <header className="flex items-center justify-between">
+            <header className="flex items-start justify-between">
                 <h2 className="text-xl">Diet Table</h2>
-                <Button>
-                    Add <Plus />
-                </Button>
+                <div className="flex gap-4 max-w-2xl w-full">
+                    <SearchInput />
+                    <Button>
+                        Add <Plus />
+                    </Button>
+                </div>
             </header>
             <main className="space-y-6">
-                {foods.map((food) => (
+                {foodList.map((food: IFood) => (
                     <Card key={food.id}>
                         <CardHeader className="flex-row justify-between">
                             <div className="flex gap-4">
