@@ -1,6 +1,6 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { foods } from "@/data/foods";
@@ -28,9 +28,15 @@ export function SearchInput() {
                     value={searchQuery}
                     onChange={handleSearch}
                     placeholder="Search"
-                    className="relative pl-10"
+                    className="relative px-10"
                 />
                 <Search className="absolute top-1/2 left-3 size-4 text-muted-foreground -translate-y-1/2" />
+                <X
+                    onClick={() => setSearchQuery("")}
+                    className={`absolute top-1/2 right-3 size-4 text-muted-foreground -translate-y-1/2 ${
+                        searchQuery === "" ? "hidden" : ""
+                    }`}
+                />
             </div>
             {searchQuery !== "" && (
                 <div className="absolute top-full mt-2 left-0 w-full z-30">

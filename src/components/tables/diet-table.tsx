@@ -19,7 +19,7 @@ import { Separator } from "../ui/separator";
 import { useDietListContext } from "@/contexts/diet-list-context";
 import { SearchInput } from "./search-input";
 
-export function DesktopDietTable() {
+export function DietTable() {
     const { foodList } = useDietListContext();
 
     const [quantities, setQuantities] = useState(
@@ -39,20 +39,17 @@ export function DesktopDietTable() {
 
     return (
         <div className="space-y-12">
-            <header className="flex items-start justify-between">
+            <header className="flex flex-col gap-2 md:flex-row items-start justify-between">
                 <h2 className="text-xl">Diet Table</h2>
                 <div className="flex gap-4 max-w-2xl w-full">
                     <SearchInput />
-                    <Button>
-                        Add <Plus />
-                    </Button>
                 </div>
             </header>
             <main className="space-y-6">
                 {foodList.map((food: IFood) => (
-                    <Card key={food.id}>
-                        <CardHeader className="flex-row justify-between">
-                            <div className="flex gap-4">
+                    <Card key={food.id} className="space-y-4">
+                        <CardHeader className="md:flex-row md:justify-between gap-4">
+                            <div className="flex items-center gap-4">
                                 <div className="size-16 relative rounded-md">
                                     <Image
                                         className="rounded-md absolute object-cover"
@@ -107,36 +104,37 @@ export function DesktopDietTable() {
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <CardDescription className="flex flex-row">
+                            <CardDescription className="flex flex-col gap-2 sm:flex-row">
                                 <span className="flex gap-2 text-center">
                                     {(
                                         (food.kcal / food.defaultQuantity) *
                                         quantities[food.id]
                                     ).toFixed(1)}
+                                    {" kcal"}
                                     <Separator orientation={"vertical"} />
                                 </span>
-                                <span className="flex gap-2 px-2 text-center">
+                                <span className="flex gap-2 md:px-2 text-center">
                                     {(
                                         (food.protein / food.defaultQuantity) *
                                         quantities[food.id]
-                                    ).toFixed(1)}
-                                    g protein
+                                    ).toFixed(2)}
+                                    {" g protein"}
                                     <Separator orientation={"vertical"} />
                                 </span>
-                                <span className="flex gap-2 px-2 text-center">
+                                <span className="flex gap-2 md:px-2 text-center">
                                     {(
                                         (food.carbs / food.defaultQuantity) *
                                         quantities[food.id]
-                                    ).toFixed(1)}
-                                    g carbs
+                                    ).toFixed(2)}
+                                    {" g carbs"}
                                     <Separator orientation={"vertical"} />
                                 </span>
-                                <span className="flex gap-2 px-2 text-center">
+                                <span className="flex gap-2 md:px-2 text-center">
                                     {(
                                         (food.fat / food.defaultQuantity) *
                                         quantities[food.id]
-                                    ).toFixed(1)}
-                                    g fat
+                                    ).toFixed(2)}
+                                    {" g fat"}
                                 </span>
                             </CardDescription>
                         </CardContent>
